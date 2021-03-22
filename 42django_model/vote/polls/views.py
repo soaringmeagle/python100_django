@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse,HttpResponse,HttpRequest
+from django.http import JsonResponse, HttpResponse, HttpRequest
 
-from polls.models import Subject, Teacher
+from polls.models import Subject, Teacher, User
+from polls.utils import Captcha, gen_random_code, gen_md5_digest
 
 
 # Create your views here.
@@ -43,7 +44,6 @@ def praise_or_criticize(request, tno):
     return JsonResponse(data)
 
 
-
 def praise_or_criticize(request: HttpRequest) -> HttpResponse:
     if request.session.get('userid'):
         try:
@@ -62,3 +62,33 @@ def praise_or_criticize(request: HttpRequest) -> HttpResponse:
     else:
         data = {'code': 20002, 'mesg': '请先登录'}
     return JsonResponse(data)
+
+
+def login(request: HttpRequest) -> HttpResponse:
+    hint = ''
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        captcha = request.POST.get('captcha')
+        if captcha.upper() == request.session['captcha'].upper():
+            if username and password:
+                password = gen_md5_digest(password)
+                user = User.objects.filter(username=username, password=password).first()
+                if user:
+                    request.session['userid'] = user.no
+                    request.session['username'] = user.username
+                    return redirect('/')
+                else:
+                    hint = '用户名或密码错误'
+            else:
+                hint = '请输入有效的用户名和密码'
+        else:
+            hint = '验证码错误'
+    return render(request, 'login.html', {'hint': hint})
+
+
+def get_captcha(request: HttpRequest) -> HttpResponse:
+    captcha_text = gen_random_code()
+    request.session['captcha'] = captcha_text
+    image_data = Captcha.instance().generate(captcha_text)
+    return HttpResponse(image_data, content_type='image/png')

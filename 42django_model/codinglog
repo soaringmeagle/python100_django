@@ -107,3 +107,7 @@ django管理后台模型
     STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
     STATIC_URL = '/static/'
 
+4.2021.03.22
+    两个用户wangdachui和hellokitty密码分别是1qaz2wsx和Abc123!!
+
+
