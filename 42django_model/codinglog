@@ -1,0 +1,109 @@
+1.2021.03.17
+django安装使用
+    右键文件夹 open as pycharm project
+    配置项目虚拟环境
+    安装django
+    pip install -i https://douban.com/simple/ django
+    新建项目
+    django-admin startproject project_name
+    新建应用
+    python manage.py startapp
+    配置调试环境
+    Run->Edit Configuration
+    script path: path of manage.py
+    parameters: runserver
+项目基本设置
+    setting.py
+    LANGUAGE_CODE = 'zh-hans'
+    TIME_ZONE = 'Asia/Shanghai'
+使用模板
+    manage.py同级新建templates文件夹
+    setting.py
+    TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+2.2021.03.18
+django_mysql数据库配置
+    项目setting.py
+    DATABASES = {
+    'default': {
+        # 数据库引擎配置
+        'ENGINE': 'django.db.backends.mysql',
+        # 数据库的名字
+        'NAME': 'vote',
+        # 数据库服务器的IP地址（本机可以写localhost或127.0.0.1）
+        'HOST': 'localhost',
+        # 启动MySQL服务的端口号
+        'PORT': 3306,
+        # 数据库用户名和口令
+        'USER': 'hellokitty',
+        'PASSWORD': 'Hellokitty.618',
+        # 数据库使用的字符集
+        'CHARSET': 'utf8',
+        # 数据库时间日期的时区设定
+        'TIME_ZONE': 'Asia/Chongqing',
+        }
+    }
+
+    安装pymysql驱动
+    pip install pymysql
+    django项目__init__.py添加：
+    import pymysql
+    pymysql.install_as_MySQLdb()
+
+    利用Django的ORM，我们可以直接将数据库中已创建的表映射到Django中的模型类
+    python manage.py inspectdb > polls/models.py  （polls:应用名）
+
+
+    终端中进行CRUD操作
+    python manage.py shell
+
+django管理后台模型
+    1.数据库迁移
+    python manage.py migrate
+
+    2.创建django后台管理员
+    python manage.py createsuperuser
+
+    3.注册模型类
+    from django.contrib import admin
+
+    from polls.models import Subject, Teacher
+
+    admin.site.register(Subject)
+    admin.site.register(Teacher)
+
+    4.注册模型管理类
+    from django.contrib import admin
+
+    from polls.models import Subject, Teacher
+
+
+    class SubjectModelAdmin(admin.ModelAdmin):
+        list_display = ('no', 'name', 'intro', 'is_hot')
+        search_fields = ('name', )
+        ordering = ('no', )
+
+    admin.site.register(Subject,SubjectModelAdmin)
+
+
+3.2021.03.19
+加载静态资源
+    manage.py同级新建static文件夹
+    在项目配置文件setting.py中配置静态资源所在的文件夹和URL前缀
+    STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+    STATIC_URL = '/static/'
+
