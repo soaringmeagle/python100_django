@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>学科信息</title>
-   <style>
+    <meta charset="UTF-8">
+    <title>学科信息</title>
+    <style>
        #container {
            width: 80%;
            margin: 10px auto;
@@ -27,29 +27,31 @@
            text-decoration: none;
            color: darkcyan;
        }
-   </style>
+
+    </style>
 </head>
 <body>
-   <div id="container">
-       <div class="user">
-           <a href="login/">用户登录</a>
-           <a href="register/">快速注册</a>
-       </div>
-       <h1>扣丁学堂所有学科</h1>
-       <hr>
-       <div id="main">
-           {% for subject in subjects %}
-           <dl>
-               <dt>
-                   <a href="/teachers/{{ subject.no }}/">{{ subject.name }}</a>
-                   {% if subject.is_hot %}
-                   <img src="/static/images/hot-icon-small.png">
-                   {% endif %}
-               </dt>
-               <dd>{{ subject.intro }}</dd>
-           </dl>
-           {% endfor %}
-       </div>
-   </div>
+<div id="container">
+    <!--       <div class="user">-->
+    <!--           <a href="login/">用户登录</a>-->
+    <!--           <a href="register/">快速注册</a>-->
+    <!--       </div>-->
+    {% include 'header.html' %}
+    <h1>扣丁学堂所有学科</h1>
+    <hr>
+    <div id="main">
+        {% for subject in subjects %}
+        <dl>
+            <dt>
+                <a href="/teachers/{{ subject.no }}/">{{ subject.name }}</a>
+                {% if subject.is_hot %}
+                <img src="/static/images/hot-icon-small.png">
+                {% endif %}
+            </dt>
+            <dd>{{ subject.intro }}</dd>
+        </dl>
+        {% endfor %}
+    </div>
+</div>
 </body>
 </html>
