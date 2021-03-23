@@ -111,3 +111,22 @@ django管理后台模型
     两个用户wangdachui和hellokitty密码分别是1qaz2wsx和Abc123!!
 
 
+5.2021.03.23
+    session:
+    写入：request.session['key']=value
+    读取：后端  value = request.session['key']
+         前端  {{ request.session.key }}
+    清除：request.session.flush()
+
+    cookie:
+    写入：response = HttpResponse | render | redirect
+         response.set_cookie(key,value,...)
+         response.set_signed_cookie(key,value,salt='加密盐',...)
+         return response
+
+    读取：request.COOKIES.get(key)
+    删除：response = HttpResponse | render | redirect
+         response.delete_cookie(key)
+         return response
+
+

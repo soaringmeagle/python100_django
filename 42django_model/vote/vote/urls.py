@@ -24,6 +24,7 @@ urlpatterns = [
     path('praise/<int:tno>/', views.praise_or_criticize, name='praise'),
     path('criticize/<int:tno>/', views.praise_or_criticize, name='criticize'),
     path('login/', views.login, name='login'),
-    path('logout/',views.logout,name='logout'),
+    path('logout/', views.logout, name='logout'),
     path('captcha/', views.get_captcha, name='captcha'),
+    path('excel/', views.export_teachers_excel, name='excel'),
 ]
