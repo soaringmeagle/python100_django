@@ -129,25 +129,35 @@ def export_teachers_excel(request):
 
     colnames = ('姓名', '介绍', '好评数', '差评数', '学科')
     for index, name in enumerate(colnames):
-        sheet1.cell(row=1,column=index+1).value =colnames[index]
+        sheet1.cell(row=1, column=index + 1).value = colnames[index]
 
     # 逐行将老师信息写入工作表
     for teacher in queryset:
-        teacher_info=[teacher.name,teacher.intro,teacher.good_count,teacher.bad_count,teacher.subject.name]
-        current_row = sheet1.max_row +1 # 当前行号
-        for i in range(1,len(teacher_info)+1):
-            sheet1.cell(row=current_row,column=i).value = teacher_info[i-1]
+        teacher_info = [teacher.name, teacher.intro, teacher.good_count, teacher.bad_count, teacher.subject.name]
+        current_row = sheet1.max_row + 1  # 当前行号
+        for i in range(1, len(teacher_info) + 1):
+            sheet1.cell(row=current_row, column=i).value = teacher_info[i - 1]
     # 准备写入IO中
     output = BytesIO()
-    wb.save(output)   # 将excel文件内容保存到IO中
-    output.seek(0)    # 重新定位到开始
+    wb.save(output)  # 将excel文件内容保存到IO中
+    output.seek(0)  # 重新定位到开始
     # 设置HttpResponse的类型
-    response = HttpResponse(output.getvalue(),content_type='application/vnd.ms-excel')
+    response = HttpResponse(output.getvalue(), content_type='application/vnd.ms-excel')
     create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     file_name = f'老师信息表{create_time}.xls'
-    file_name = urlquote(file_name)   # 使用urlquote()方法解决中文无法使用问题
+    file_name = urlquote(file_name)  # 使用urlquote()方法解决中文无法使用问题
     response['Content-Disposition'] = f'attachment; filename={file_name}'
     # response.write(output.getvalue())	 # 在设置HttpResponse的类型时，如果给了值，可以不写这句
     return response
 
 
+def get_teachers_data(request):
+    queryset = Teacher.objects.all()
+    names = [teacher.name for teacher in queryset]
+    good_counts = [teacher.good_count for teacher in queryset]
+    bad_counts = [teacher.bad_count for teacher in queryset]
+    return JsonResponse({'names': names, 'good': good_counts, 'bad': bad_counts})
+
+
+def get_teachers_chart(request):
+    return render(request, 'teacher_chart.html')

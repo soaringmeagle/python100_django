@@ -26,6 +26,7 @@
        a {
            text-decoration: none;
            color: darkcyan;
+           margin-left:10px;
        }
 
     </style>
@@ -38,7 +39,7 @@
     <!--       </div>-->
     {% include 'header.html' %}
     <h1>扣丁学堂所有学科</h1>
-    <a href="excel/">下载老师信息</a>
+    <span><a href="excel/">下载老师信息</a></span><span><a href="chart/">查看老师统计</a></span>
     <hr>
     <div id="main">
         {% for subject in subjects %}

@@ -27,4 +27,6 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('captcha/', views.get_captcha, name='captcha'),
     path('excel/', views.export_teachers_excel, name='excel'),
+    path('teachers_data/', views.get_teachers_data, name='teachers_data'),
+    path('chart/',views.get_teachers_chart,name='chart'),
 ]
