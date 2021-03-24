@@ -242,4 +242,19 @@ cookie:
 
     4.调试项目，页面右侧出现调试信息
 
+中间件
+    自定义中间件，写法等同于装饰器函数
+    1.定义中间件函数
+    def XXX_middleware(get_resp):
+        def wrapper(request, *args, **kwargs):
+            pass
+            return get_resp(request, *args, **kwargs)
+        return wrapper
+    2.修改配置文件来激活中间件使其生效
+    settings.py
+    MIDDLEWARE = [
+        ...,
+        XXX_middleware,
+    ]
+
 
