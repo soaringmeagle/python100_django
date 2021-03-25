@@ -6,12 +6,22 @@ from django.http import JsonResponse, HttpResponse, HttpRequest
 from polls.models import Subject, Teacher, User
 from polls.utils import Captcha, gen_random_code, gen_md5_digest
 
+from polls.mappers import SubjectMapper
+
 
 # Create your views here.
 
 def show_subjects(request):
     subjects = Subject.objects.all().order_by('no')
     return render(request, 'subjects.html', {'subjects': subjects})
+
+
+def api_show_subjects(request):
+    queryset = Subject.objects.all()
+    subjects = []
+    for subject in queryset:
+        subjects.append(SubjectMapper(subject).as_dict())
+    return JsonResponse(subjects, safe=False)
 
 
 def show_teachers(request, sno):

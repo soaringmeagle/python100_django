@@ -47,3 +47,43 @@
 2021-03-24 15:28:25 INFO [2728-Thread-9] basehttp.log_message line 157: "GET /static/debug_toolbar/js/history.js HTTP/1.1" 200 1365
 2021-03-24 15:28:34 INFO [2728-Thread-9] basehttp.log_message line 157: "GET /__debug__/render_panel/?store_id=de5de74b868f4dadb4b43aed42457055&panel_id=HeadersPanel HTTP/1.1" 200 3950
 2021-03-24 15:28:37 INFO [2728-Thread-9] basehttp.log_message line 157: "GET /__debug__/render_panel/?store_id=de5de74b868f4dadb4b43aed42457055&panel_id=RequestPanel HTTP/1.1" 200 1753
+2021-03-25 10:22:02 INFO [9308-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 10:22:05 INFO [9308-Thread-6] basehttp.log_message line 157: "GET / HTTP/1.1" 200 11773
+2021-03-25 10:22:06 WARNING [9308-Thread-6] basehttp.log_message line 157: "GET /static/images/hot-icon-small.png HTTP/1.1" 404 1701
+2021-03-25 10:22:08 INFO [9308-Thread-9] basehttp.log_message line 157: "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
+2021-03-25 10:22:08 INFO [9308-Thread-7] basehttp.log_message line 157: "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 11405
+2021-03-25 10:22:08 INFO [9308-Thread-8] basehttp.log_message line 157: "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 10268
+2021-03-25 10:22:08 INFO [9308-Thread-7] basehttp.log_message line 157: "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 2090
+2021-03-25 10:22:08 WARNING [9308-Thread-7] log.log_response line 224: Not Found: /favicon.ico
+2021-03-25 10:22:08 WARNING [9308-Thread-7] basehttp.log_message line 157: "GET /favicon.ico HTTP/1.1" 404 13026
+2021-03-25 10:22:14 INFO [9308-Thread-7] basehttp.log_message line 157: "GET /api/subjects/ HTTP/1.1" 200 626
+2021-03-25 10:22:35 INFO [9308-Thread-7] basehttp.log_message line 157: "GET /api/subjects/ HTTP/1.1" 200 626
+2021-03-25 10:25:36 INFO [9308-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\polls\views.py changed, reloading.
+2021-03-25 10:25:38 INFO [4112-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 10:25:39 INFO [4112-Thread-7] basehttp.log_message line 157: "GET /api/subjects/ HTTP/1.1" 200 622
+2021-03-25 10:39:23 WARNING [4112-Thread-9] log.log_response line 224: Not Found: /api_subjects.html
+2021-03-25 10:39:23 WARNING [4112-Thread-9] basehttp.log_message line 157: "GET /api_subjects.html HTTP/1.1" 404 13051
+2021-03-25 10:39:36 WARNING [4112-Thread-9] log.log_response line 224: Not Found: /api_subject
+2021-03-25 10:39:36 WARNING [4112-Thread-9] basehttp.log_message line 157: "GET /api_subject HTTP/1.1" 404 13026
+2021-03-25 10:41:28 INFO [4112-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\vote\urls.py changed, reloading.
+2021-03-25 10:41:29 INFO [244-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 10:42:23 INFO [244-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\vote\urls.py changed, reloading.
+2021-03-25 10:42:24 INFO [6660-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 10:43:39 INFO [6660-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\vote\settings.py changed, reloading.
+2021-03-25 10:43:40 INFO [2116-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 10:45:09 WARNING [2116-Thread-6] log.log_response line 224: Not Found: /subjects.html
+2021-03-25 10:45:09 WARNING [2116-Thread-6] basehttp.log_message line 157: "GET /subjects.html HTTP/1.1" 404 13161
+2021-03-25 10:45:14 WARNING [2116-Thread-6] log.log_response line 224: Not Found: /subject.html
+2021-03-25 10:45:14 WARNING [2116-Thread-6] basehttp.log_message line 157: "GET /subject.html HTTP/1.1" 404 13156
+2021-03-25 10:45:33 WARNING [2116-Thread-6] log.log_response line 224: Not Found: /subjects.html
+2021-03-25 10:45:33 WARNING [2116-Thread-6] basehttp.log_message line 157: "GET /subjects.html HTTP/1.1" 404 13160
+2021-03-25 10:48:20 WARNING [2116-Thread-6] log.log_response line 224: Not Found: /html/subjects.html
+2021-03-25 10:48:20 WARNING [2116-Thread-6] basehttp.log_message line 157: "GET /html/subjects.html HTTP/1.1" 404 13181
+2021-03-25 10:48:43 WARNING [2116-Thread-6] log.log_response line 224: Not Found: /media/subjects.html
+2021-03-25 10:48:43 WARNING [2116-Thread-6] basehttp.log_message line 157: "GET /media/subjects.html HTTP/1.1" 404 11362
+2021-03-25 15:24:50 INFO [2116-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\vote\settings.py changed, reloading.
+2021-03-25 15:24:52 INFO [6096-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 15:25:20 INFO [6096-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\vote\settings.py changed, reloading.
+2021-03-25 15:25:22 INFO [4832-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-25 15:32:30 INFO [4832-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\polls\views.py changed, reloading.
+2021-03-25 15:32:31 INFO [8572-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader

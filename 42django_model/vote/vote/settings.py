@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'debug_toolbar',
     'polls',
     'django.contrib.admin',
@@ -121,9 +122,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+# 配置静态资源路径和URL前缀
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_URL = '/static/'
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 LOGGING = {
     'version': 1,
@@ -198,3 +202,31 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda x: True,
 }
 
+
+# 下面的配置根据项目需要进行设置
+REST_FRAMEWORK = {
+    # 配置默认页面大小
+    # 'PAGE_SIZE': 10,
+    # 配置默认的分页类
+    # 'DEFAULT_PAGINATION_CLASS': '...',
+    # 配置异常处理器
+    # 'EXCEPTION_HANDLER': '...',
+    # 配置默认解析器
+    # 'DEFAULT_PARSER_CLASSES': (
+    #     'rest_framework.parsers.JSONParser',
+    #     'rest_framework.parsers.FormParser',
+    #     'rest_framework.parsers.MultiPartParser',
+    # ),
+    # 配置默认限流类
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     '...'
+    # ),
+    # 配置默认授权类
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     '...',
+    # ),
+    # 配置默认认证类
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     '...',
+    # ),
+}
