@@ -21,11 +21,13 @@ def show_subjects(request):
 
 
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import permissions
 
 
 class SubjectModelViewSet(ModelViewSet):
     queryset = Subject.objects.all().order_by('no')
     serializer_class = SubjectSerializer
+    # permission_classes = (permissions.IsAuthenticated,)   # 要求身份验证
 
 
 # def api_show_subjects(request):

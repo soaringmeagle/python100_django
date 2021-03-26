@@ -289,11 +289,14 @@ django restframework
         # ),
         # 配置默认授权类
         # 'DEFAULT_PERMISSION_CLASSES': (
-        #     '...',
+            'rest_framework.permissions.IsAuthenticated',
+
         # ),
         # 配置默认认证类
         # 'DEFAULT_AUTHENTICATION_CLASSES': (
-        #     '...',
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.TokenAuthentication',
         # ),
     }
 
@@ -321,6 +324,10 @@ django restframework
 
 
    ModelViewSet：
+   from rest_framework.authentication import TokenAuthentication, BasicAuthentication, SessionAuthentication
+   from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
+
+
    class UserViewSet(ModelViewSet):
 
     fields = (

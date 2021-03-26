@@ -272,3 +272,41 @@
 2021-03-26 15:25:50 INFO [8128-Thread-12] basehttp.log_message line 157: "OPTIONS /api/subject/?format=api HTTP/1.1" 200 20250
 2021-03-26 15:25:51 INFO [8128-Thread-12] basehttp.log_message line 157: "GET /api/subject/?format=api HTTP/1.1" 200 19790
 2021-03-26 15:25:57 INFO [8128-Thread-12] basehttp.log_message line 157: "GET /api/subject/?format=json HTTP/1.1" 200 510
+2021-03-26 16:37:06 INFO [8128-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\polls\views.py changed, reloading.
+2021-03-26 16:37:07 INFO [6084-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-26 16:37:36 INFO [6084-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\polls\views.py changed, reloading.
+2021-03-26 16:37:38 INFO [528-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-26 16:37:49 WARNING [528-Thread-6] log.log_response line 224: Not Found: /api/subjects/
+2021-03-26 16:37:49 WARNING [528-Thread-6] basehttp.log_message line 157: "GET /api/subjects/ HTTP/1.1" 404 13515
+2021-03-26 16:37:55 ERROR [528-Thread-6] log.log_response line 224: Internal Server Error: /api/subject/
+Traceback (most recent call last):
+  File "D:\python100_django\42django_model\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 415, in initial
+    self.check_permissions(request)
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 331, in check_permissions
+    for permission in self.get_permissions():
+  File "D:\python100_django\42django_model\venv\lib\site-packages\rest_framework\views.py", line 278, in get_permissions
+    return [permission() for permission in self.permission_classes]
+TypeError: 'BasePermissionMetaclass' object is not iterable
+2021-03-26 16:37:55 ERROR [528-Thread-6] basehttp.log_message line 157: "GET /api/subject/ HTTP/1.1" 500 114190
+2021-03-26 16:39:10 INFO [528-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\polls\views.py changed, reloading.
+2021-03-26 16:39:11 INFO [1544-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
+2021-03-26 16:39:12 WARNING [1544-Thread-6] log.log_response line 224: Forbidden: /api/subject/
+2021-03-26 16:39:12 WARNING [1544-Thread-6] basehttp.log_message line 157: "GET /api/subject/ HTTP/1.1" 403 14623
+2021-03-26 16:40:57 INFO [1544-MainThread] autoreload.trigger_reload line 240: D:\python100_django\42django_model\vote\polls\views.py changed, reloading.
+2021-03-26 16:40:58 INFO [32-MainThread] autoreload.run_with_reloader line 617: Watching for file changes with StatReloader
