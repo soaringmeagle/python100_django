@@ -319,6 +319,52 @@ django restframework
        permission_classes = (IsAuthenticated,)
        authentication_classes = (JSONWebTokenAuthentication,)
 
+
+   ModelViewSet：
+   class UserViewSet(ModelViewSet):
+
+    fields = (
+        swagger_doc(name="Authorization", description='用户token', location='header', required=False),
+    )
+
+    # 认证
+    # authentication_classes = [Authentication, ]
+    # queryset 和 serializer_class  必须指定
+    queryset = User.objects.all()
+    serializer_class = CreateUserSerializer
+    pagination_class = StandardResultsSetPagination
+
+    def retrieve(self, request, pk=None):
+        """ 用户详情 """
+        # 获取实例
+        user = self.get_object()
+        # 序列化
+        serializer = self.get_serializer(user)
+        return success_response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        """ 创建用户 """
+
+        serializer = self.get_serializer(data=request.data)
+        # save 前必须先调用 is_valid()
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return success_response(serializer.data)
+
+    def update(self, request: Request, *args, **kwargs):
+        """ 更新用户信息 """
+
+    def destroy(self, request: Request, *args, **kwargs):
+        """ 删除用户 """
+
+        return success_response()
+
+    def list(self, request: Request, *args, **kwargs):
+        """ 获取用户列表 """
+
+        return success_response()
+
    5.配置app urls.py
    from django.urls.conf import include, path
    from rest_framework.routers import SimpleRouter
