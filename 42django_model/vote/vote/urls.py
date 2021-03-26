@@ -22,7 +22,9 @@ from vote import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_subjects),
-    path('api/subjects/',views.api_show_subjects),
+    # path('api/subjects/',views.api_show_subjects),
+    path('api/', include('polls.urls')),
+    path('api/teachers/',views.api_show_teachers),
     path('teachers/<int:sno>/', views.show_teachers, name='teachers'),
     path('praise/<int:tno>/', views.praise_or_criticize, name='praise'),
     path('criticize/<int:tno>/', views.praise_or_criticize, name='criticize'),
@@ -32,7 +34,7 @@ urlpatterns = [
     path('excel/', views.export_teachers_excel, name='excel'),
     path('teachers_data/', views.get_teachers_data, name='teachers_data'),
     path('chart/',views.get_teachers_chart,name='chart'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 if settings.DEBUG:
     import debug_toolbar

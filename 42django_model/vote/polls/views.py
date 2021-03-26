@@ -6,7 +6,11 @@ from django.http import JsonResponse, HttpResponse, HttpRequest
 from polls.models import Subject, Teacher, User
 from polls.utils import Captcha, gen_random_code, gen_md5_digest
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from polls.mappers import SubjectMapper
+from polls.serializers import SubjectSerializer, TeacherSerializer, SubjectSimpleSerializer
 
 
 # Create your views here.
@@ -16,12 +20,55 @@ def show_subjects(request):
     return render(request, 'subjects.html', {'subjects': subjects})
 
 
-def api_show_subjects(request):
-    queryset = Subject.objects.all()
-    subjects = []
-    for subject in queryset:
-        subjects.append(SubjectMapper(subject).as_dict())
-    return JsonResponse(subjects, safe=False)
+from rest_framework.viewsets import ModelViewSet
+
+
+class SubjectModelViewSet(ModelViewSet):
+    queryset = Subject.objects.all().order_by('no')
+    serializer_class = SubjectSerializer
+
+
+# def api_show_subjects(request):
+#     queryset = Subject.objects.all()
+#     subjects = []
+#     for subject in queryset:
+#         subjects.append(SubjectMapper(subject).as_dict())
+#     return JsonResponse(subjects, safe=False)
+
+# @api_view(('GET', ))
+# def api_show_subjects(request):
+#     subjects = Subject.objects.all().order_by('no')
+#     # 创建序列化器对象并指定要序列化的模型
+#     serializer = SubjectSerializer(subjects, many=True)
+#     # 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据
+#     return Response(serializer.data)
+
+@api_view(('GET',))
+def api_show_subjects(request: HttpRequest) -> HttpResponse:
+    subjects = Subject.objects.all().order_by('no')
+    # 创建序列化器对象并指定要序列化的模型
+    serializer = SubjectSerializer(subjects, many=True)
+    # 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据
+    return Response(serializer.data)
+
+
+# @api_view(('GET',))
+# def api_show_teachers(request: HttpRequest) -> HttpResponse:
+#     teachers = Teacher.objects.all.order_by('no')
+#     serializer = TeacherSerializer(teachers, many=True)
+#     return Response(serializer.data)
+
+@api_view(('GET',))
+def api_show_teachers(request: HttpRequest) -> HttpResponse:
+    try:
+        sno = int(request.GET.get('sno'))
+        subject = Subject.objects.only('name').get(no=sno)
+        teachers = Teacher.objects.filter(subject=subject).defer('subject').order_by('no')
+        subject_seri = SubjectSimpleSerializer(subject)
+        teacher_seri = TeacherSerializer(teachers, many=True)
+        return Response({'subject': subject_seri.data, 'teachers': teacher_seri.data})
+    except (TypeError, ValueError, Subject.DoesNotExist):
+        return Response(status=404)
 
 
 def show_teachers(request, sno):

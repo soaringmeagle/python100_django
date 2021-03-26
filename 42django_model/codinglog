@@ -258,5 +258,85 @@ cookie:
     ]
 
 2021.03.25
+django restframework
+    1.安装
+    pip install djangorestframework
 
+    2.配置DRF   setting.py
+    INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    ...
+    ]
 
+    # 下面的配置根据项目需要进行设置
+    REST_FRAMEWORK = {
+        # 配置默认页面大小
+        # 'PAGE_SIZE': 10,
+        # 配置默认的分页类
+        # 'DEFAULT_PAGINATION_CLASS': '...',
+        # 配置异常处理器
+        # 'EXCEPTION_HANDLER': '...',
+        # 配置默认解析器
+        # 'DEFAULT_PARSER_CLASSES': (
+        #     'rest_framework.parsers.JSONParser',
+        #     'rest_framework.parsers.FormParser',
+        #     'rest_framework.parsers.MultiPartParser',
+        # ),
+        # 配置默认限流类
+        # 'DEFAULT_THROTTLE_CLASSES': (
+        #     '...'
+        # ),
+        # 配置默认授权类
+        # 'DEFAULT_PERMISSION_CLASSES': (
+        #     '...',
+        # ),
+        # 配置默认认证类
+        # 'DEFAULT_AUTHENTICATION_CLASSES': (
+        #     '...',
+        # ),
+    }
+
+   3.序列化器serializers.py
+   from rest_framework import serializers
+   from .models import XXXModel,XXXModel
+
+   class XXXSerializer(serializers.ModelSerializer):
+       class Meta:
+        model = XXXModel
+        fields = "__all__"
+
+   4.视图view.py
+   from .models import StudModel,ClassesModel
+   from .serializer import XXXSerializer
+
+   from rest_framework.viewsets import ModelViewSet
+
+   class XXXModelViewSet(ModelViewSet):
+       queryset = XXX.objects.all()    # 必须
+       serializer_class = XXXSerializer  # 必须
+       pagination_class = XXXPagination
+       permission_classes = (IsAuthenticated,)
+       authentication_classes = (JSONWebTokenAuthentication,)
+
+   5.配置app urls.py
+   from django.urls.conf import include, path
+   from rest_framework.routers import SimpleRouter
+
+   from polls.views import XXXModelViewSet
+
+   router = SimpleRouter()
+   router.register('xxx', XXXModelViewSet)
+
+   urlpatterns = [
+       path('', include(router.urls)),
+   ]
+
+   6.配置项目urls.py
+   from django.contrib import admin
+   from django.urls import path,include
+
+   urlpatterns = [
+       path('admin/', admin.site.urls),
+       path('api/', include('app.urls')),
+   ]
