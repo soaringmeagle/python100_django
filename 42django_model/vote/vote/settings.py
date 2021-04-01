@@ -129,69 +129,69 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-LOGGING = {
-    'version': 1,
-    # 是否禁用已经存在的日志器
-    'disable_existing_loggers': False,
-    # 日志格式化器
-    'formatters': {
-        'simple': {
-            'format': '%(asctime)s %(module)s.%(funcName)s: %(message)s',
-            'datefmt': '%Y-%m-%d %H:%M:%S',
-        },
-        'verbose': {
-            'format': '%(asctime)s %(levelname)s [%(process)d-%(threadName)s] '
-                      '%(module)s.%(funcName)s line %(lineno)d: %(message)s',
-            'datefmt': '%Y-%m-%d %H:%M:%S',
-        }
-    },
-    # 日志过滤器
-    'filters': {
-        # 只有在Django配置文件中DEBUG值为True时才起作用
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    # 日志处理器
-    'handlers': {
-        # 输出到控制台
-        'console': {
-            'class': 'logging.StreamHandler',
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'formatter': 'simple',
-        },
-        # 输出到文件(每周切割一次)
-        'file1': {
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'access.log',
-            'when': 'W0',
-            'backupCount': 12,
-            'formatter': 'simple',
-            'level': 'INFO',
-        },
-        # 输出到文件(每天切割一次)
-        'file2': {
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'info.log',
-            'when': 'D',
-            'backupCount': 31,
-            'formatter': 'verbose',
-            'level': 'INFO',
-        },
-    },
-    # 日志器记录器
-    'loggers': {
-        'django': {
-            # 需要使用的日志处理器
-            'handlers': ['file2'],
-            # 是否向上传播日志信息
-            'propagate': True,
-            # 日志级别(不一定是最终的日志级别)
-            'level': 'DEBUG',
-        },
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     # 是否禁用已经存在的日志器
+#     'disable_existing_loggers': False,
+#     # 日志格式化器
+#     'formatters': {
+#         'simple': {
+#             'format': '%(asctime)s %(module)s.%(funcName)s: %(message)s',
+#             'datefmt': '%Y-%m-%d %H:%M:%S',
+#         },
+#         'verbose': {
+#             'format': '%(asctime)s %(levelname)s [%(process)d-%(threadName)s] '
+#                       '%(module)s.%(funcName)s line %(lineno)d: %(message)s',
+#             'datefmt': '%Y-%m-%d %H:%M:%S',
+#         }
+#     },
+#     # 日志过滤器
+#     'filters': {
+#         # 只有在Django配置文件中DEBUG值为True时才起作用
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         },
+#     },
+#     # 日志处理器
+#     'handlers': {
+#         # 输出到控制台
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'formatter': 'simple',
+#         },
+#         # 输出到文件(每周切割一次)
+#         'file1': {
+#             'class': 'logging.handlers.TimedRotatingFileHandler',
+#             'filename': 'access.log',
+#             'when': 'W0',
+#             'backupCount': 12,
+#             'formatter': 'simple',
+#             'level': 'INFO',
+#         },
+#         # 输出到文件(每天切割一次)
+#         'file2': {
+#             'class': 'logging.handlers.TimedRotatingFileHandler',
+#             'filename': 'info.log',
+#             'when': 'D',
+#             'backupCount': 31,
+#             'formatter': 'verbose',
+#             'level': 'INFO',
+#         },
+#     },
+#     # 日志器记录器
+#     'loggers': {
+#         'django': {
+#             # 需要使用的日志处理器
+#             'handlers': ['file2'],
+#             # 是否向上传播日志信息
+#             'propagate': True,
+#             # 日志级别(不一定是最终的日志级别)
+#             'level': 'DEBUG',
+#         },
+#     }
+# }
 # debug_toolbar配置
 DEBUG_TOOLBAR_CONFIG = {
     # 引入jQuery库
@@ -230,3 +230,26 @@ REST_FRAMEWORK = {
     #     '...',
     # ),
 }
+
+# django-redis配置
+CACHES = {
+        'default': {
+            # 指定通过django-redis接入Redis服务
+            'BACKEND': 'django_redis.cache.RedisCache',
+            # Redis服务器的URL
+            'LOCATION': ['redis://127.0.0.1:6379/0', ],
+            # Redis中键的前缀（解决命名冲突）
+            'KEY_PREFIX': 'vote',
+            # 其他的配置选项
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                # 连接池（预置若干备用的Redis连接）参数
+                'CONNECTION_POOL_KWARGS': {
+                    # 最大连接数
+                    'max_connections': 512,
+                },
+                # 连接Redis的用户口令
+                # 'PASSWORD': 'foobared',
+            }
+        },
+    }

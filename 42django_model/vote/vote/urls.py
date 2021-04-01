@@ -22,7 +22,7 @@ from vote import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_subjects),
-    # path('api/subjects/',views.api_show_subjects),
+    path('api/show_subjects/',views.api_show_subjects),
     path('api/', include('polls.urls')),
     path('api/teachers/',views.api_show_teachers),
     path('teachers/<int:sno>/', views.show_teachers, name='teachers'),

@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse, HttpRequest
@@ -11,6 +12,7 @@ from rest_framework.response import Response
 
 from polls.mappers import SubjectMapper
 from polls.serializers import SubjectSerializer, TeacherSerializer, SubjectSimpleSerializer
+from django_redis import get_redis_connection
 
 
 # Create your views here.
@@ -45,13 +47,30 @@ class SubjectModelViewSet(ModelViewSet):
 #     # 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据
 #     return Response(serializer.data)
 
+
+# django_restframework api方法
 @api_view(('GET',))
+# def api_show_subjects(request: HttpRequest) -> HttpResponse:
+#     subjects = Subject.objects.all().order_by('no')
+#     # 创建序列化器对象并指定要序列化的模型
+#     serializer = SubjectSerializer(subjects, many=True)
+#     # 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据
+#     return Response(serializer.data)
+
 def api_show_subjects(request: HttpRequest) -> HttpResponse:
-    subjects = Subject.objects.all().order_by('no')
-    # 创建序列化器对象并指定要序列化的模型
-    serializer = SubjectSerializer(subjects, many=True)
-    # 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据
-    return Response(serializer.data)
+    redis_cli = get_redis_connection()
+    # 先尝试从缓存中读取数据
+    data = redis_cli.get('vote:polls:subjects')
+    if data:
+        # 如果获取到数据就进行反序列化操作
+        data = json.loads(data)
+    else:
+        # 如果缓存中没有获取到数据，就到数据库查询
+        queryset = Subject.objects.all()
+        data = SubjectSerializer(queryset, many=True).data
+        # 将查询到的数据序列化后存入缓存
+        redis_cli.set('vote:polls:subjects', json.dumps(data), ex=86400)
+    return Response({'code': 20000, 'subjects': data})
 
 
 # @api_view(('GET',))
