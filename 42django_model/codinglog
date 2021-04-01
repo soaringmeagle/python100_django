@@ -399,6 +399,7 @@ django restframework
 Django项目接入Redis
     1.安装
     pip install django-redis
+
     2.配置setting.py
     CACHES = {
         'default': {
@@ -421,3 +422,10 @@ Django项目接入Redis
             }
         },
     }
+
+    3.使用redis_client操作缓存
+    from django_redis import get_redis_connection
+
+    redis_cli = get_redis_connection()
+    写缓存：redis_cli.set('vote:polls:subjects', json.dumps(data), ex=86400)
+    读缓存：data = redis_cli.get('vote:polls:subjects')
